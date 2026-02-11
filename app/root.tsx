@@ -46,6 +46,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+    const { theme, direction } = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -55,22 +57,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Navbar/>
-        {children}
+            <ThemeProvider defaultTheme={theme} defaultDirection={direction}>
+
+          <Navbar />
+
+          {children}
+
         <ScrollRestoration />
         <Scripts />
+                        </ThemeProvider>
       </body>
     </html>
   );
 }
 
 export default function App() {
-  const { theme, direction } = useLoaderData<typeof loader>();
 
   return (
-    <ThemeProvider defaultTheme={theme} defaultDirection={direction}>
       <Outlet />
-    </ThemeProvider>
   );
 }
 
