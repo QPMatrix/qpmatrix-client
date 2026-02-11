@@ -4,7 +4,7 @@ import { ThemeToggle } from './ThemeToggle';
 import { UserMenu } from './UserMenu';
 import { MobileMenu } from './MobileMenu';
 import { NAV_LINKS } from './constants';
-import {ActivityView} from '../ActivityView';
+import { ActivityView } from '../ActivityView';
 
 /**
  * Modern high-tech navbar component
