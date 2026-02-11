@@ -5,21 +5,42 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "react-router";
+  useLoaderData,
+} from 'react-router';
 
-import type { Route } from "./+types/root";
-import "./app.css";
+import type { Route } from './+types/root';
+import './app.css';
+import { ThemeProvider } from './providers/theme/provider';
+import {
+  parseDirectionCookie,
+  parseThemeCookie,
+} from './providers/theme/theme.server';
+import type { ThemeDirection, ThemeMode } from './providers/theme/types';
+
+/**
+ * Loader function to parse theme and direction from cookies
+ *
+ * @param {Route.LoaderArgs} args - Loader arguments
+ * @returns {Promise<{ theme: ThemeMode; direction: ThemeDirection }>} Theme and direction values
+ */
+export async function loader({ request }: Route.LoaderArgs): Promise<{ theme: ThemeMode; direction: ThemeDirection; }> {
+  const cookieHeader = request.headers.get('Cookie');
+  const theme = parseThemeCookie(cookieHeader);
+  const direction = parseDirectionCookie(cookieHeader);
+
+  return { theme, direction };
+}
 
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
+    rel: 'preconnect',
+    href: 'https://fonts.gstatic.com',
+    crossOrigin: 'anonymous',
   },
   {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
   },
 ];
 
@@ -42,7 +63,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const { theme, direction } = useLoaderData<typeof loader>();
+
+  return (
+    <ThemeProvider defaultTheme={theme} defaultDirection={direction}>
+      <Outlet />
+    </ThemeProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
