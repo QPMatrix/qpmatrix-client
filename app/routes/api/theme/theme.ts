@@ -3,6 +3,19 @@ import { serializeThemeCookie } from '../../../providers/theme/theme.server';
 import type { Route } from './+types/theme';
 
 /**
+ * Loader handler for theme API route
+ * explicitly returns 405 Method Not Allowed for GET requests
+ */
+export async function loader() {
+  return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+    status: 405,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+/**
  * Action handler for theme API route
  * Sets theme cookie based on POST request body
  *
@@ -17,6 +30,7 @@ import type { Route } from './+types/theme';
  * });
  */
 export async function action({ request }: Route.ActionArgs): Promise<Response> {
+  // Defensive check, though action should trigger on non-GET
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
       status: 405,

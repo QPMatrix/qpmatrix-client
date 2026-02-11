@@ -17,8 +17,8 @@ type LogoProps = {
 export function Logo({ className }: LogoProps): React.ReactElement {
   return (
     <Link to="/" className={`flex items-center space-x-2 ${className || ''}`}>
-      <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
-      <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+      <div className="h-8 w-8 rounded-lg bg-linear-to-br from-primary to-accent" />
+      <span className="text-xl font-bold bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
         QPMatrix
       </span>
     </Link>

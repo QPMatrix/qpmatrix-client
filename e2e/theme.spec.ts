@@ -5,10 +5,7 @@ test.describe('Theme System E2E', () => {
     await page.goto('/');
   });
 
-  test('should persist theme selection across page reloads', async ({
-    page,
-    context,
-  }) => {
+  test('should persist theme selection across page reloads', async ({ page, context }) => {
     // Check initial theme cookie
     const cookies = await context.cookies();
     const themeCookie = cookies.find((c) => c.name === 'qpmatrix-theme');
@@ -18,19 +15,13 @@ test.describe('Theme System E2E', () => {
       expect(themeCookie).toBeUndefined();
     }
 
-    // Simulate setting theme via API
-    await page.evaluate(async () => {
-      await fetch('/api/theme', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ theme: 'dark' }),
-      });
+    // Set theme via API using PAGE request context to share storage state (cookies)
+    const response = await page.request.post('/api/theme', {
+      data: { theme: 'dark' },
     });
+    expect(response.ok()).toBeTruthy();
 
-    // Wait a bit for cookie to be set
-    await page.waitForTimeout(100);
-
-    // Reload page
+    // Reload page to pick up the new cookie/theme
     await page.reload();
 
     // Check cookie persisted
@@ -41,30 +32,15 @@ test.describe('Theme System E2E', () => {
     expect(updatedThemeCookie?.value).toBe('dark');
 
     // Check document has dark class
-    const hasLight = await page.evaluate(() => {
-      return document.documentElement.classList.contains('light');
-    });
-    const hasDark = await page.evaluate(() => {
-      return document.documentElement.classList.contains('dark');
-    });
-    expect(hasDark || hasLight).toBe(true);
+    await expect(page.locator('html')).toHaveClass(/dark/);
   });
 
-  test('should persist direction selection across page reloads', async ({
-    page,
-    context,
-  }) => {
-    // Simulate setting direction via API
-    await page.evaluate(async () => {
-      await fetch('/api/theme/direction', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ direction: 'rtl' }),
-      });
+  test('should persist direction selection across page reloads', async ({ page, context }) => {
+    // Set direction via API using PAGE request context
+    const response = await page.request.post('/api/theme/direction', {
+      data: { direction: 'rtl' },
     });
-
-    // Wait a bit for cookie to be set
-    await page.waitForTimeout(100);
+    expect(response.ok()).toBeTruthy();
 
     // Reload page
     await page.reload();
@@ -75,96 +51,57 @@ test.describe('Theme System E2E', () => {
     expect(directionCookie?.value).toBe('rtl');
 
     // Check document has dir attribute
-    const dir = await page.evaluate(() => {
-      return document.documentElement.getAttribute('dir');
-    });
-    expect(dir).toBe('rtl');
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   });
 
   test('theme API should validate input', async ({ page }) => {
-    const response = await page.evaluate(async () => {
-      const res = await fetch('/api/theme', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ theme: 'invalid-theme' }),
-      });
-      return {
-        status: res.status,
-        body: await res.json(),
-      };
+    const response = await page.request.post('/api/theme', {
+      data: { theme: 'invalid-theme' },
     });
 
-    expect(response.status).toBe(400);
-    expect(response.body.error).toContain('Invalid theme value');
+    expect(response.status()).toBe(400);
+    const body = await response.json();
+    expect(body.error).toContain('Invalid theme value');
   });
 
   test('direction API should validate input', async ({ page }) => {
-    const response = await page.evaluate(async () => {
-      const res = await fetch('/api/theme/direction', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ direction: 'invalid-direction' }),
-      });
-      return {
-        status: res.status,
-        body: await res.json(),
-      };
+    const response = await page.request.post('/api/theme/direction', {
+      data: { direction: 'invalid-direction' },
     });
 
-    expect(response.status).toBe(400);
-    expect(response.body.error).toContain('Invalid direction value');
+    expect(response.status()).toBe(400);
+    const body = await response.json();
+    expect(body.error).toContain('Invalid direction value');
   });
 
   test('theme API should reject non-POST requests', async ({ page }) => {
-    const response = await page.evaluate(async () => {
-      const res = await fetch('/api/theme', {
-        method: 'GET',
-      });
-      return {
-        status: res.status,
-        body: await res.json(),
-      };
-    });
-
-    expect(response.status).toBe(405);
-    expect(response.body.error).toContain('Method not allowed');
+    // Use GET request to check 405
+    const response = await page.request.get('/api/theme');
+    
+    expect(response.status()).toBe(405);
+    const body = await response.json();
+    expect(body.error).toContain('Method not allowed');
   });
 
   test('direction API should reject non-POST requests', async ({ page }) => {
-    const response = await page.evaluate(async () => {
-      const res = await fetch('/api/theme/direction', {
-        method: 'GET',
-      });
-      return {
-        status: res.status,
-        body: await res.json(),
-      };
-    });
-
-    expect(response.status).toBe(405);
-    expect(response.body.error).toContain('Method not allowed');
+    const response = await page.request.get('/api/theme/direction');
+    
+    expect(response.status()).toBe(405);
+    const body = await response.json();
+    expect(body.error).toContain('Method not allowed');
   });
 
   test('should handle system theme preference', async ({ page }) => {
     // Set theme to system
-    await page.evaluate(async () => {
-      await fetch('/api/theme', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ theme: 'system' }),
-      });
+    const response = await page.request.post('/api/theme', {
+      data: { theme: 'system' },
     });
+    expect(response.ok()).toBeTruthy();
 
-    await page.waitForTimeout(100);
     await page.reload();
 
-    // Document should have either dark or light class based on system preference
-    const hasLight = await page.evaluate(() => {
-      return document.documentElement.classList.contains('light');
-    });
-    const hasDark = await page.evaluate(() => {
-      return document.documentElement.classList.contains('dark');
-    });
-    expect(hasDark || hasLight).toBe(true);
+    // Document should have either dark or light class
+    // Use toHaveClass to wait for hydration/useEffect
+    await expect(page.locator('html')).toHaveClass(/dark|light/);
   });
 });

@@ -3,6 +3,19 @@ import { serializeDirectionCookie } from '../../../providers/theme/theme.server'
 import type { Route } from './+types/direction';
 
 /**
+ * Loader handler for direction API route
+ * explicitly returns 405 Method Not Allowed for GET requests
+ */
+export async function loader() {
+  return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+    status: 405,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+/**
  * Action handler for direction API route
  * Sets direction cookie based on POST request body
  *
@@ -11,12 +24,13 @@ import type { Route } from './+types/direction';
  * @throws {Response} 400 error if direction is invalid
  * @throws {Response} 405 error if method is not POST
  * @example
- * fetch('/api/direction', {
+ * fetch('/api/theme/direction', {
  *   method: 'POST',
  *   body: JSON.stringify({ direction: 'rtl' })
  * });
  */
 export async function action({ request }: Route.ActionArgs): Promise<Response> {
+  // Defensive check
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
       status: 405,
@@ -31,10 +45,10 @@ export async function action({ request }: Route.ActionArgs): Promise<Response> {
     const { direction } = body;
 
     // Validate direction value
-    if (direction !== 'rtl' && direction !== 'ltr') {
+    if (direction !== 'ltr' && direction !== 'rtl') {
       return new Response(
         JSON.stringify({
-          error: 'Invalid direction value. Must be "rtl" or "ltr"',
+          error: 'Invalid direction value. Must be "ltr" or "rtl"',
         }),
         {
           status: 400,
