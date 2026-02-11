@@ -5,6 +5,7 @@ import { UserMenu } from './UserMenu';
 import { MobileMenu } from './MobileMenu';
 import { NAV_LINKS } from './constants';
 import { ActivityView } from '../ActivityView';
+import { useMediaQuery } from '~/hooks/use-media-query';
 
 /**
  * Modern high-tech navbar component
@@ -13,12 +14,15 @@ import { ActivityView } from '../ActivityView';
  * @returns {React.ReactElement} Navbar component
  */
 function Navbar(): React.ReactElement {
-  // Mock authentication and mobile state (replace with real hooks later)
+  // Mock authentication (replace with real auth hook later)
   const isAuthenticated = true;
-  const isMobile = true; // In a real app, use a media query hook
+  
+  // Real mobile detection (Tablet/Mobile breakpoint usually < 768px)
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isMobile = !isDesktop;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         <Logo />
 

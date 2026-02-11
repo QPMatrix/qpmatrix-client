@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Navbar from './Navbar';
 
@@ -34,7 +34,23 @@ vi.mock('../ActivityView', () => {
   };
 });
 
+// Mock useMediaQuery
+vi.mock('~/hooks/use-media-query', () => ({
+  useMediaQuery: vi.fn(),
+}));
+
+import { useMediaQuery } from '~/hooks/use-media-query';
+
 describe('Navbar', () => {
+  // Setup default mock return value
+  const mockUseMediaQuery = useMediaQuery as unknown as ReturnType<typeof vi.fn>;
+  
+  beforeEach(() => {
+    vi.clearAllMocks();
+    // Default to desktop
+    mockUseMediaQuery.mockReturnValue(true);
+  });
+
   it('should render all components', () => {
     render(<Navbar />);
 
@@ -65,13 +81,28 @@ describe('Navbar', () => {
     expect(activityWrapper).toBeInTheDocument();
   });
 
-  // Note: hardcoded "true" in Navbar for auth/mobile means we expect data-active="true"
-  it('should have active constraints set to true (based on hardcoded values)', () => {
+  it('should have correct active states (Desktop mode)', () => {
     render(<Navbar />);
     
-    const activityViews = screen.getAllByTestId('mock-activity-view');
-    activityViews.forEach(view => {
-      expect(view).toHaveAttribute('data-active', 'true');
-    });
+    // UserMenu should be active (isAuthenticated = true)
+    const userMenu = screen.getByTestId('mock-user-menu');
+    const userWrapper = userMenu.closest('[data-testid="mock-activity-view"]');
+    expect(userWrapper).toHaveAttribute('data-active', 'true');
+
+    // MobileMenu should be inactive (isDesktop = true => isMobile = false)
+    const mobileMenu = screen.getByTestId('mock-mobile-menu');
+    const mobileWrapper = mobileMenu.closest('[data-testid="mock-activity-view"]');
+    expect(mobileWrapper).toHaveAttribute('data-active', 'false');
+  });
+
+  it('should have correct active states (Mobile mode)', () => {
+    mockUseMediaQuery.mockReturnValue(false); // isDesktop = false
+    
+    render(<Navbar />);
+    
+    // MobileMenu should be active (isMobile = true)
+    const mobileMenu = screen.getByTestId('mock-mobile-menu');
+    const mobileWrapper = mobileMenu.closest('[data-testid="mock-activity-view"]');
+    expect(mobileWrapper).toHaveAttribute('data-active', 'true');
   });
 });
