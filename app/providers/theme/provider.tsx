@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import type { IThemeProviderProps, ThemeDirection, ThemeMode } from './types';
 import { ThemeContext } from './context';
 import { DEFAULT_DIRECTION, DEFAULT_THEME } from './constants';
+import { themeService } from '~/lib/api/services/theme.service';
 import { DirectionProvider } from '~/components/ui/direction';
 
 /**
@@ -33,15 +34,11 @@ export function ThemeProvider({
   const setTheme = (newTheme: ThemeMode): void => {
     setThemeState(newTheme);
 
-    // Persist to cookie via API
-    fetch('/api/theme', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ theme: newTheme }),
-    }).catch((error: unknown) => {
+    // Persist to cookie via API using theme service
+    themeService.setTheme(newTheme).catch((error: unknown) => {
       console.error('Failed to persist theme:', error);
+      // Optionally revert state on error
+      // setThemeState(theme);
     });
   };
 
@@ -54,15 +51,11 @@ export function ThemeProvider({
   const setDirection = (newDirection: ThemeDirection): void => {
     setDirectionState(newDirection);
 
-    // Persist to cookie via API
-    fetch('/api/theme/direction', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ direction: newDirection }),
-    }).catch((error: unknown) => {
+    // Persist to cookie via API using theme service
+    themeService.setDirection(newDirection).catch((error: unknown) => {
       console.error('Failed to persist direction:', error);
+      // Optionally revert state on error
+      // setDirectionState(direction);
     });
   };
 

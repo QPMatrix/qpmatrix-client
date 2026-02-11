@@ -16,6 +16,7 @@ import {
   parseThemeCookie,
 } from './providers/theme/theme.server';
 import type { ThemeDirection, ThemeMode } from './providers/theme/types';
+import { Navbar } from './components/Navbar';
 
 /**
  * Loader function to parse theme and direction from cookies
@@ -54,6 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Navbar/>
         {children}
         <ScrollRestoration />
         <Scripts />
