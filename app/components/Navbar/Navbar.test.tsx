@@ -34,21 +34,26 @@ vi.mock('../ActivityView', () => {
   };
 });
 
-// Mock useMediaQuery
-vi.mock('~/hooks/use-media-query', () => ({
-  useMediaQuery: vi.fn(),
+// Mock useBreakpoints
+vi.mock('~/hooks/use-breakpoints', () => ({
+  useBreakpoints: vi.fn(),
 }));
 
-import { useMediaQuery } from '~/hooks/use-media-query';
+import { useBreakpoints } from '~/hooks/use-breakpoints';
 
 describe('Navbar', () => {
   // Setup default mock return value
-  const mockUseMediaQuery = useMediaQuery as unknown as ReturnType<typeof vi.fn>;
+  const mockUseBreakpoints = useBreakpoints as unknown as ReturnType<typeof vi.fn>;
   
   beforeEach(() => {
     vi.clearAllMocks();
     // Default to desktop
-    mockUseMediaQuery.mockReturnValue(true);
+    mockUseBreakpoints.mockReturnValue({ 
+      isMobile: false, 
+      isTablet: false, 
+      isDesktop: true,
+      active: 'desktop'
+    });
   });
 
   it('should render all components', () => {
@@ -89,18 +94,40 @@ describe('Navbar', () => {
     const userWrapper = userMenu.closest('[data-testid="mock-activity-view"]');
     expect(userWrapper).toHaveAttribute('data-active', 'true');
 
-    // MobileMenu should be inactive (isDesktop = true => isMobile = false)
+    // MobileMenu should be inactive (showMobileMenu = isMobile || isTablet = false)
     const mobileMenu = screen.getByTestId('mock-mobile-menu');
     const mobileWrapper = mobileMenu.closest('[data-testid="mock-activity-view"]');
     expect(mobileWrapper).toHaveAttribute('data-active', 'false');
   });
 
   it('should have correct active states (Mobile mode)', () => {
-    mockUseMediaQuery.mockReturnValue(false); // isDesktop = false
+    mockUseBreakpoints.mockReturnValue({ 
+      isMobile: true, 
+      isTablet: false, 
+      isDesktop: false,
+      active: 'mobile'
+    });
     
     render(<Navbar />);
     
-    // MobileMenu should be active (isMobile = true)
+    // MobileMenu should be active (showMobileMenu = true)
+    const mobileMenu = screen.getByTestId('mock-mobile-menu');
+    const mobileWrapper = mobileMenu.closest('[data-testid="mock-activity-view"]');
+    expect(mobileWrapper).toHaveAttribute('data-active', 'true');
+  });
+
+  it('should have correct active states (Tablet mode)', () => {
+    // Tablet should also show mobile menu
+    mockUseBreakpoints.mockReturnValue({ 
+      isMobile: false, 
+      isTablet: true, 
+      isDesktop: false,
+      active: 'tablet'
+    });
+    
+    render(<Navbar />);
+    
+    // MobileMenu should be active (showMobileMenu = true)
     const mobileMenu = screen.getByTestId('mock-mobile-menu');
     const mobileWrapper = mobileMenu.closest('[data-testid="mock-activity-view"]');
     expect(mobileWrapper).toHaveAttribute('data-active', 'true');
