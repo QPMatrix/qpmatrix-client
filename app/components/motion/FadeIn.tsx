@@ -1,4 +1,4 @@
-import type { HTMLMotionProps } from 'framer-motion';
+import type { HTMLMotionProps, TargetAndTransition } from 'framer-motion';
 
 import { Motion } from './Motion';
 
@@ -6,7 +6,7 @@ interface FadeInProps extends HTMLMotionProps<'div'> {
   direction?: 'up' | 'down' | 'left' | 'right' | 'none';
   delay?: number;
   duration?: number;
-  classname?: string;
+  className?: string; // Corrected lowercase 'classname' to 'className'
   viewport?: { once?: boolean; margin?: string };
 }
 
@@ -19,7 +19,7 @@ export function FadeIn({
   viewport = { once: true, margin: '-50px' },
   ...props
 }: FadeInProps) {
-  const directions = {
+  const directions: Record<string, TargetAndTransition> = {
     up: { y: 20 },
     down: { y: -20 },
     left: { x: 20 },
@@ -27,19 +27,19 @@ export function FadeIn({
     none: {},
   };
 
-  const initial = {
+  const initial: TargetAndTransition = {
     opacity: 0,
     ...directions[direction],
   };
 
-  const animate = {
+  const animate: TargetAndTransition = {
     opacity: 1,
     y: 0,
     x: 0,
     transition: {
       duration,
       delay,
-      ease: 'circOut',
+      ease: 'easeOut',
     },
   };
 
