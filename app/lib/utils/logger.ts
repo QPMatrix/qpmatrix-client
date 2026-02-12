@@ -43,11 +43,7 @@ function formatMessage(
  * @example
  * logger.log('API Request', 'GET /api/users');
  */
-function log(
-  context: LoggerContext,
-  message: string,
-  ...args: unknown[]
-): void {
+function log(context: LoggerContext, message: string, ...args: unknown[]): void {
   console.log(...formatMessage(context, message, ...args));
 }
 
@@ -61,11 +57,7 @@ function log(
  * @example
  * logger.info('Theme', 'Theme changed to dark');
  */
-function info(
-  context: LoggerContext,
-  message: string,
-  ...args: unknown[]
-): void {
+function info(context: LoggerContext, message: string, ...args: unknown[]): void {
   console.info(...formatMessage(context, message, ...args));
 }
 
@@ -79,11 +71,7 @@ function info(
  * @example
  * logger.warn('API Request', 'Request is taking longer than expected');
  */
-function warn(
-  context: LoggerContext,
-  message: string,
-  ...args: unknown[]
-): void {
+function warn(context: LoggerContext, message: string, ...args: unknown[]): void {
   console.warn(...formatMessage(context, message, ...args));
 }
 
@@ -97,11 +85,7 @@ function warn(
  * @example
  * logger.error('API Error', 'Failed to fetch users', error);
  */
-function error(
-  context: LoggerContext,
-  message: string,
-  ...args: unknown[]
-): void {
+function error(context: LoggerContext, message: string, ...args: unknown[]): void {
   console.error(...formatMessage(context, message, ...args));
 }
 
@@ -115,11 +99,7 @@ function error(
  * @example
  * logger.debug('API Response', 'Response data', data);
  */
-function debug(
-  context: LoggerContext,
-  message: string,
-  ...args: unknown[]
-): void {
+function debug(context: LoggerContext, message: string, ...args: unknown[]): void {
   if (import.meta.env.DEV) {
     console.debug(...formatMessage(context, message, ...args));
   }

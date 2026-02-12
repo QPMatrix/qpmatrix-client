@@ -81,9 +81,7 @@ describe('ThemeProvider', () => {
     );
 
     const root = document.documentElement;
-    expect(root.classList.contains('dark') || root.classList.contains('light')).toBe(
-      true
-    );
+    expect(root.classList.contains('dark') || root.classList.contains('light')).toBe(true);
   });
 
   it('should apply direction attribute to document root', () => {
@@ -137,9 +135,7 @@ describe('ThemeProvider', () => {
     const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     // Mock API failure
-    vi.mocked(themeService.themeService.setTheme).mockRejectedValueOnce(
-      new Error('API Error')
-    );
+    vi.mocked(themeService.themeService.setTheme).mockRejectedValueOnce(new Error('API Error'));
 
     render(
       <ThemeProvider>
@@ -155,10 +151,7 @@ describe('ThemeProvider', () => {
 
     // Error should be logged
     await waitFor(() => {
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Failed to persist theme:',
-        expect.any(Error)
-      );
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to persist theme:', expect.any(Error));
     });
 
     consoleErrorSpy.mockRestore();

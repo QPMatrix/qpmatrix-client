@@ -11,10 +11,7 @@ import {
 import type { Route } from './+types/root';
 import './app.css';
 import { ThemeProvider } from './providers/theme/provider';
-import {
-  parseDirectionCookie,
-  parseThemeCookie,
-} from './providers/theme/theme.server';
+import { parseDirectionCookie, parseThemeCookie } from './providers/theme/theme.server';
 import type { ThemeDirection, ThemeMode } from './providers/theme/types';
 import { Navbar } from './components/Navbar';
 
@@ -24,7 +21,9 @@ import { Navbar } from './components/Navbar';
  * @param {Route.LoaderArgs} args - Loader arguments
  * @returns {Promise<{ theme: ThemeMode; direction: ThemeDirection }>} Theme and direction values
  */
-export async function loader({ request }: Route.LoaderArgs): Promise<{ theme: ThemeMode; direction: ThemeDirection; }> {
+export async function loader({
+  request,
+}: Route.LoaderArgs): Promise<{ theme: ThemeMode; direction: ThemeDirection }> {
   const cookieHeader = request.headers.get('Cookie');
   const theme = parseThemeCookie(cookieHeader);
   const direction = parseDirectionCookie(cookieHeader);
@@ -46,7 +45,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-    const { theme, direction } = useLoaderData<typeof loader>();
+  const { theme, direction } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
@@ -57,49 +56,43 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-            <ThemeProvider defaultTheme={theme} defaultDirection={direction}>
-
+        <ThemeProvider defaultTheme={theme} defaultDirection={direction}>
           <Navbar />
 
           {children}
 
-        <ScrollRestoration />
-        <Scripts />
-                        </ThemeProvider>
+          <ScrollRestoration />
+          <Scripts />
+        </ThemeProvider>
       </body>
     </html>
   );
 }
 
 export default function App() {
-
-  return (
-      <Outlet />
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let message = 'Oops!';
+  let details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message = error.status === 404 ? '404' : 'Error';
     details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+      error.status === 404 ? 'The requested page could not be found.' : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container mx-auto p-4 pt-16">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full overflow-x-auto p-4">
           <code>{stack}</code>
         </pre>
       )}

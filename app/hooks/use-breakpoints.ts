@@ -9,10 +9,10 @@ import { useMediaQuery } from './use-media-query';
 export function useBreakpoints() {
   // Mobile: 0px - 767px
   const isMobile = useMediaQuery('(max-width: 767px)');
-  
+
   // Tablet: 768px - 1023px
   const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
-  
+
   // Desktop: 1024px+
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 

@@ -21,9 +21,7 @@ export function parseThemeCookie(cookieHeader: string | null): ThemeMode {
   }
 
   const cookies = cookieHeader.split(';').map((cookie) => cookie.trim());
-  const themeCookie = cookies.find((cookie) =>
-    cookie.startsWith(`${THEME_COOKIE_NAME}=`)
-  );
+  const themeCookie = cookies.find((cookie) => cookie.startsWith(`${THEME_COOKIE_NAME}=`));
 
   if (!themeCookie) {
     return DEFAULT_THEME;
@@ -46,17 +44,13 @@ export function parseThemeCookie(cookieHeader: string | null): ThemeMode {
  * @example
  * const direction = parseDirectionCookie(request.headers.get('Cookie'));
  */
-export function parseDirectionCookie(
-  cookieHeader: string | null
-): ThemeDirection {
+export function parseDirectionCookie(cookieHeader: string | null): ThemeDirection {
   if (!cookieHeader) {
     return DEFAULT_DIRECTION;
   }
 
   const cookies = cookieHeader.split(';').map((cookie) => cookie.trim());
-  const directionCookie = cookies.find((cookie) =>
-    cookie.startsWith(`${DIRECTION_COOKIE_NAME}=`)
-  );
+  const directionCookie = cookies.find((cookie) => cookie.startsWith(`${DIRECTION_COOKIE_NAME}=`));
 
   if (!directionCookie) {
     return DEFAULT_DIRECTION;

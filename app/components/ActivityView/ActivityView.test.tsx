@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import ActivityView from './ActivityView';
 import { Activity } from 'react';
 
-// Mock React Activity if not available in test environment, 
+// Mock React Activity if not available in test environment,
 // though React 19 should have it. If it's effectively a div with hidden, we can test that.
 // For now, let's assume it renders children.
 
@@ -31,7 +31,7 @@ describe('ActivityView', () => {
     // It should still be in the document (that's the point of Activity/Offscreen)
     const child = screen.getByTestId('child');
     expect(child).toBeInTheDocument();
-    
+
     // Note: checking toBeVisible() might fail depending on jsdom implementation of Activity.
     // In strict React 19 Activity, hidden content is usually display:none or hidden attribute.
     // For now, determining presence is the key requirement of "Activity" vs "conditional rendering (null)".

@@ -20,21 +20,21 @@ const mockMatchMedia = (matches: boolean) => {
 };
 
 describe('useBreakpoints', () => {
-    // Note: mocking matchMedia for different queries simultaneously is complex in JSDOM unit test 
-    // without a sophisticated mock implementation that parses the query.
-    // For unit testing this hook, we might just verify it returns the object structure
-    // and relies on useMediaQuery (which we tested separately).
-    
-    // However, we can test "default" state (false)
-    it('should return default values', () => {
-        mockMatchMedia(false);
-        const { result } = renderHook(() => useBreakpoints());
-        
-        expect(result.current.isMobile).toBe(false);
-        expect(result.current.isTablet).toBe(false);
-        expect(result.current.isDesktop).toBe(false);
-        expect(result.current.active).toBe('mobile'); // Fallback if none match? 
-        // Logic: active: isDesktop ? 'desktop' : isTablet ? 'tablet' : 'mobile'
-        // If all false, it returns 'mobile'.
-    });
+  // Note: mocking matchMedia for different queries simultaneously is complex in JSDOM unit test
+  // without a sophisticated mock implementation that parses the query.
+  // For unit testing this hook, we might just verify it returns the object structure
+  // and relies on useMediaQuery (which we tested separately).
+
+  // However, we can test "default" state (false)
+  it('should return default values', () => {
+    mockMatchMedia(false);
+    const { result } = renderHook(() => useBreakpoints());
+
+    expect(result.current.isMobile).toBe(false);
+    expect(result.current.isTablet).toBe(false);
+    expect(result.current.isDesktop).toBe(false);
+    expect(result.current.active).toBe('mobile'); // Fallback if none match?
+    // Logic: active: isDesktop ? 'desktop' : isTablet ? 'tablet' : 'mobile'
+    // If all false, it returns 'mobile'.
+  });
 });

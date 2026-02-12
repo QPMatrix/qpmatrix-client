@@ -24,19 +24,19 @@ describe('useMediaQuery', () => {
     const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
     expect(result.current).toBe(false);
   });
-  
+
   it('should return true when matches', () => {
     // Override mock to return true
     window.matchMedia = vi.fn().mockImplementation((query) => ({
-        matches: true,
-        media: query,
-        onchange: null,
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-      }));
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
 
     const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
     expect(result.current).toBe(true);

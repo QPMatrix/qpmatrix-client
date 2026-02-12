@@ -66,13 +66,10 @@ export async function action({ request }: Route.ActionArgs): Promise<Response> {
     headers.append('Set-Cookie', serializeDirectionCookie(typedDirection));
     headers.append('Content-Type', 'application/json');
 
-    return new Response(
-      JSON.stringify({ success: true, direction: typedDirection }),
-      {
-        status: 200,
-        headers,
-      }
-    );
+    return new Response(JSON.stringify({ success: true, direction: typedDirection }), {
+      status: 200,
+      headers,
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({

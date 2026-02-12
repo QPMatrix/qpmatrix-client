@@ -46,16 +46,12 @@ describe('theme.server', () => {
     });
 
     it('should find theme cookie among multiple cookies', () => {
-      const result = parseThemeCookie(
-        `other=value; ${THEME_COOKIE_NAME}=dark; another=test`
-      );
+      const result = parseThemeCookie(`other=value; ${THEME_COOKIE_NAME}=dark; another=test`);
       expect(result).toBe('dark');
     });
 
     it('should handle cookies with spaces', () => {
-      const result = parseThemeCookie(
-        `other=value;   ${THEME_COOKIE_NAME}=light;   another=test`
-      );
+      const result = parseThemeCookie(`other=value;   ${THEME_COOKIE_NAME}=light;   another=test`);
       expect(result).toBe('light');
     });
   });

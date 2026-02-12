@@ -88,10 +88,8 @@ export function ThemeProvider({
   };
 
   return (
-      <ThemeContext.Provider {...props} value={value}>
-          <DirectionProvider dir={direction}>
-              {children}
-              </DirectionProvider>
+    <ThemeContext.Provider {...props} value={value}>
+      <DirectionProvider dir={direction}>{children}</DirectionProvider>
     </ThemeContext.Provider>
   );
 }

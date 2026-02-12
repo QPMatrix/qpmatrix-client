@@ -39,5 +39,5 @@ export const DEFAULT_RETRY_CONFIG: RetryConfig = {
  */
 export const COMMON_HEADERS = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json',
+  Accept: 'application/json',
 } as const;

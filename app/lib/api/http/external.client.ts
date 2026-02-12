@@ -47,10 +47,7 @@ function createExternalApiClient(baseURL?: string): AxiosInstance {
     (response) => {
       // Log responses in development
       if (env.isDevelopment()) {
-        logger.debug(
-          'External API Response',
-          `${response.config.url} - ${response.status}`
-        );
+        logger.debug('External API Response', `${response.config.url} - ${response.status}`);
       }
 
       return response;

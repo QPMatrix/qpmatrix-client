@@ -17,10 +17,7 @@ type ActivityViewProps = {
  * @param {ActivityViewProps} props - Component props
  * @returns {React.ReactElement} Component wrapping the content in an Activity
  */
-const ActivityView = ({
-  children,
-  isActive,
-}: ActivityViewProps): React.ReactElement => {
+const ActivityView = ({ children, isActive }: ActivityViewProps): React.ReactElement => {
   return <Activity mode={isActive ? 'visible' : 'hidden'}>{children}</Activity>;
 };
 

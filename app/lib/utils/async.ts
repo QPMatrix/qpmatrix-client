@@ -25,10 +25,7 @@ export function sleep(ms: number): Promise<void> {
  * @example
  * const result = await withTimeout(() => fetchData(), 5000);
  */
-export async function withTimeout<T>(
-  fn: () => Promise<T>,
-  timeoutMs: number
-): Promise<T> {
+export async function withTimeout<T>(fn: () => Promise<T>, timeoutMs: number): Promise<T> {
   return Promise.race([
     fn(),
     sleep(timeoutMs).then(() => {
@@ -81,9 +78,6 @@ export async function retry<T>(
  * @example
  * const delay = getExponentialBackoff(2, 1000); // Returns 4000 (1000 * 2^2)
  */
-export function getExponentialBackoff(
-  retryCount: number,
-  baseDelay: number
-): number {
+export function getExponentialBackoff(retryCount: number, baseDelay: number): number {
   return baseDelay * Math.pow(2, retryCount);
 }

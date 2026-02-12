@@ -8,10 +8,7 @@ export { internalHttp, externalHttp } from './services';
 
 // Raw clients (for advanced usage)
 export { internalApiClient } from './internal.client';
-export {
-  externalApiClient,
-  createExternalApiClient,
-} from './external.client';
+export { externalApiClient, createExternalApiClient } from './external.client';
 
 export type {
   ApiResponse,

@@ -1,10 +1,6 @@
 import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import type { ApiError, RequestConfig } from './types';
-import {
-  COMMON_HEADERS,
-  DEFAULT_RETRY_CONFIG,
-  INTERNAL_API_TIMEOUT,
-} from './config';
+import { COMMON_HEADERS, DEFAULT_RETRY_CONFIG, INTERNAL_API_TIMEOUT } from './config';
 import { logger } from '~/lib/utils/logger';
 import { env } from '~/lib/utils/env';
 import { sleep, getExponentialBackoff } from '~/lib/utils/async';
@@ -63,8 +59,7 @@ function createInternalApiClient(): AxiosInstance {
 
         const shouldRetry =
           retryCount < DEFAULT_RETRY_CONFIG.maxRetries &&
-          (status === undefined ||
-            DEFAULT_RETRY_CONFIG.retryableStatuses.includes(status));
+          (status === undefined || DEFAULT_RETRY_CONFIG.retryableStatuses.includes(status));
 
         if (shouldRetry) {
           config._retryCount = retryCount + 1;

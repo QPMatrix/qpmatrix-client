@@ -41,10 +41,7 @@ async function post<TResponse = unknown, TData = unknown>(
   url: string,
   data?: TData
 ): Promise<TResponse> {
-  const response: AxiosResponse<TResponse> = await externalApiClient.post(
-    url,
-    data
-  );
+  const response: AxiosResponse<TResponse> = await externalApiClient.post(url, data);
   return response.data;
 }
 
@@ -63,10 +60,7 @@ async function put<TResponse = unknown, TData = unknown>(
   url: string,
   data?: TData
 ): Promise<TResponse> {
-  const response: AxiosResponse<TResponse> = await externalApiClient.put(
-    url,
-    data
-  );
+  const response: AxiosResponse<TResponse> = await externalApiClient.put(url, data);
   return response.data;
 }
 
@@ -85,10 +79,7 @@ async function patch<TResponse = unknown, TData = unknown>(
   url: string,
   data?: TData
 ): Promise<TResponse> {
-  const response: AxiosResponse<TResponse> = await externalApiClient.patch(
-    url,
-    data
-  );
+  const response: AxiosResponse<TResponse> = await externalApiClient.patch(url, data);
   return response.data;
 }
 

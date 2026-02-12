@@ -21,9 +21,7 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
 
     return (
       <div className={cn('relative overflow-hidden', className)}>
-        {isLoading && (
-          <div className="absolute inset-0 animate-pulse bg-muted" />
-        )}
+        {isLoading && <div className="bg-muted absolute inset-0 animate-pulse" />}
         <img
           ref={ref}
           src={error && fallbackSrc ? fallbackSrc : src}

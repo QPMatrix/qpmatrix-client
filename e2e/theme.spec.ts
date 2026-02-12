@@ -26,9 +26,7 @@ test.describe('Theme System E2E', () => {
 
     // Check cookie persisted
     const updatedCookies = await context.cookies();
-    const updatedThemeCookie = updatedCookies.find(
-      (c) => c.name === 'qpmatrix-theme'
-    );
+    const updatedThemeCookie = updatedCookies.find((c) => c.name === 'qpmatrix-theme');
     expect(updatedThemeCookie?.value).toBe('dark');
 
     // Check document has dark class
@@ -77,7 +75,7 @@ test.describe('Theme System E2E', () => {
   test('theme API should reject non-POST requests', async ({ page }) => {
     // Use GET request to check 405
     const response = await page.request.get('/api/theme');
-    
+
     expect(response.status()).toBe(405);
     const body = await response.json();
     expect(body.error).toContain('Method not allowed');
@@ -85,7 +83,7 @@ test.describe('Theme System E2E', () => {
 
   test('direction API should reject non-POST requests', async ({ page }) => {
     const response = await page.request.get('/api/theme/direction');
-    
+
     expect(response.status()).toBe(405);
     const body = await response.json();
     expect(body.error).toContain('Method not allowed');
