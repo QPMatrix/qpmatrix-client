@@ -1,8 +1,10 @@
-import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import type { ApiError } from './types';
-import { COMMON_HEADERS, EXTERNAL_API_TIMEOUT } from './config';
-import { logger } from '~/lib/utils/logger';
+import axios, { type AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
+
 import { env } from '~/lib/utils/env';
+import { logger } from '~/lib/utils/logger';
+
+import { COMMON_HEADERS, EXTERNAL_API_TIMEOUT } from './config';
+import type { ApiError } from './types';
 
 /**
  * Create external API client instance for third-party APIs

@@ -1,20 +1,22 @@
 import { Link } from 'react-router';
+
+import { Badge } from '~/components/ui/badge';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from '~/components/ui/navigation-menu';
-import { Badge } from '~/components/ui/badge';
+
 import type { NavLink } from './types';
 
 /**
  * Desktop navigation props
  */
-type DesktopNavProps = {
+interface DesktopNavProps {
   /** Navigation links */
   links: NavLink[];
-};
+}
 
 /**
  * Desktop navigation menu component

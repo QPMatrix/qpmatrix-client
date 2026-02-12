@@ -1,9 +1,11 @@
-import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import type { ApiError, RequestConfig } from './types';
-import { COMMON_HEADERS, DEFAULT_RETRY_CONFIG, INTERNAL_API_TIMEOUT } from './config';
-import { logger } from '~/lib/utils/logger';
+import axios, { type AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
+
+import { getExponentialBackoff, sleep } from '~/lib/utils/async';
 import { env } from '~/lib/utils/env';
-import { sleep, getExponentialBackoff } from '~/lib/utils/async';
+import { logger } from '~/lib/utils/logger';
+
+import { COMMON_HEADERS, DEFAULT_RETRY_CONFIG, INTERNAL_API_TIMEOUT } from './config';
+import type { ApiError, RequestConfig } from './types';
 
 /**
  * Create internal API client instance for same-origin requests

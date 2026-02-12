@@ -1,5 +1,5 @@
-import type { ThemeMode } from '../../../providers/theme/types';
 import { serializeThemeCookie } from '../../../providers/theme/theme.server';
+import type { ThemeMode } from '../../../providers/theme/types';
 import type { Route } from './+types/theme';
 
 /**

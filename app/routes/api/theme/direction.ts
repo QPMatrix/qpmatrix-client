@@ -1,5 +1,5 @@
-import type { ThemeDirection } from '../../../providers/theme/types';
 import { serializeDirectionCookie } from '../../../providers/theme/theme.server';
+import type { ThemeDirection } from '../../../providers/theme/types';
 import type { Route } from './+types/direction';
 
 /**

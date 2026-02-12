@@ -1,9 +1,11 @@
-import { useEffect, useState, type ReactNode } from 'react';
-import type { IThemeProviderProps, ThemeDirection, ThemeMode } from './types';
-import { ThemeContext } from './context';
-import { DEFAULT_DIRECTION, DEFAULT_THEME } from './constants';
-import { themeService } from '~/lib/api/services/theme.service';
+import { type ReactNode, useEffect, useState } from 'react';
+
 import { DirectionProvider } from '~/components/ui/direction';
+import { themeService } from '~/lib/api/services/theme.service';
+
+import { DEFAULT_DIRECTION, DEFAULT_THEME } from './constants';
+import { ThemeContext } from './context';
+import type { IThemeProviderProps, ThemeDirection, ThemeMode } from './types';
 
 /**
  * Theme Provider component for managing theme and direction with SSR support

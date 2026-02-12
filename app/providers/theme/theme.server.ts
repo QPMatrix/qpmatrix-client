@@ -1,4 +1,3 @@
-import type { ThemeDirection, ThemeMode } from './types';
 import {
   COOKIE_MAX_AGE,
   DEFAULT_DIRECTION,
@@ -6,6 +5,7 @@ import {
   DIRECTION_COOKIE_NAME,
   THEME_COOKIE_NAME,
 } from './constants';
+import type { ThemeDirection, ThemeMode } from './types';
 
 /**
  * Parse theme from cookie header

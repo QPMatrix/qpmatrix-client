@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ActivityView from './ActivityView';
 import { Activity } from 'react';
+import { describe, expect, it } from 'vitest';
+
+import ActivityView from './ActivityView';
 
 // Mock React Activity if not available in test environment,
 // though React 19 should have it. If it's effectively a div with hidden, we can test that.

@@ -1,6 +1,6 @@
 import React, { Activity, type ReactNode } from 'react';
 
-type ActivityViewProps = {
+interface ActivityViewProps {
   /** The content to be rendered */
   children: ReactNode;
   /**
@@ -8,7 +8,7 @@ type ActivityViewProps = {
    * If false, the content is hidden but keeps its state.
    */
   isActive: boolean;
-};
+}
 
 /**
  * ActivityView component using React's Activity API

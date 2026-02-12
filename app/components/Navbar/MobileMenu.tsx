@@ -1,17 +1,19 @@
-import { Link } from 'react-router';
 import { Menu } from 'lucide-react';
+import { Link } from 'react-router';
+
+import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '~/components/ui/sheet';
-import { Badge } from '~/components/ui/badge';
+
 import type { NavLink } from './types';
 
 /**
  * Mobile menu props
  */
-type MobileMenuProps = {
+interface MobileMenuProps {
   /** Navigation links */
   links: NavLink[];
-};
+}
 
 /**
  * Mobile menu drawer component

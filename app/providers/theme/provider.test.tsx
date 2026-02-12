@@ -1,9 +1,11 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from './provider';
-import { useTheme } from './context';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import * as themeService from '~/lib/api/services/theme.service';
+
+import { useTheme } from './context';
+import { ThemeProvider } from './provider';
 
 // Mock the theme service
 vi.mock('~/lib/api/services/theme.service', () => ({
@@ -132,7 +134,7 @@ describe('ThemeProvider', () => {
 
   it('should update state immediately even if API call fails', async () => {
     const user = userEvent.setup();
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     // Mock API failure
     vi.mocked(themeService.themeService.setTheme).mockRejectedValueOnce(new Error('API Error'));

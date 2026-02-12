@@ -1,10 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import {
-  parseThemeCookie,
-  parseDirectionCookie,
-  serializeThemeCookie,
-  serializeDirectionCookie,
-} from './theme.server';
+import { describe, expect, it } from 'vitest';
+
 import {
   COOKIE_MAX_AGE,
   DEFAULT_DIRECTION,
@@ -12,6 +7,12 @@ import {
   DIRECTION_COOKIE_NAME,
   THEME_COOKIE_NAME,
 } from './constants';
+import {
+  parseDirectionCookie,
+  parseThemeCookie,
+  serializeDirectionCookie,
+  serializeThemeCookie,
+} from './theme.server';
 
 describe('theme.server', () => {
   describe('parseThemeCookie', () => {

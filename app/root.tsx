@@ -1,3 +1,5 @@
+import './app.css';
+
 import {
   isRouteErrorResponse,
   Links,
@@ -9,11 +11,10 @@ import {
 } from 'react-router';
 
 import type { Route } from './+types/root';
-import './app.css';
+import { Navbar } from './components/Navbar';
 import { ThemeProvider } from './providers/theme/provider';
 import { parseDirectionCookie, parseThemeCookie } from './providers/theme/theme.server';
 import type { ThemeDirection, ThemeMode } from './providers/theme/types';
-import { Navbar } from './components/Navbar';
 
 /**
  * Loader function to parse theme and direction from cookies

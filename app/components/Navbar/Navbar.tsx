@@ -1,11 +1,12 @@
-import { Logo } from './Logo';
+import { useBreakpoints } from '~/hooks/use-breakpoints';
+
+import { ActivityView } from '../ActivityView';
+import { NAV_LINKS } from './constants';
 import { DesktopNav } from './DesktopNav';
+import { Logo } from './Logo';
+import { MobileMenu } from './MobileMenu';
 import { ThemeToggle } from './ThemeToggle';
 import { UserMenu } from './UserMenu';
-import { MobileMenu } from './MobileMenu';
-import { NAV_LINKS } from './constants';
-import { ActivityView } from '../ActivityView';
-import { useBreakpoints } from '~/hooks/use-breakpoints';
 
 /**
  * Modern high-tech navbar component

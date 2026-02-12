@@ -1,4 +1,5 @@
 import { createContext, use, useContext } from 'react';
+
 import type { IThemeProviderState } from './types';
 
 /**

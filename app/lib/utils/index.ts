@@ -1,9 +1,7 @@
 /**
  * Utility exports
  */
-export { logger } from './logger';
-export type { LoggerContext, LogLevel } from './logger';
-
+export { getExponentialBackoff, retry, sleep, withTimeout } from './async';
 export { env } from './env';
-
-export { sleep, withTimeout, retry, getExponentialBackoff } from './async';
+export type { LoggerContext, LogLevel } from './logger';
+export { logger } from './logger';

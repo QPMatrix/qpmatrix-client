@@ -5,19 +5,19 @@ import type { AxiosRequestConfig } from 'axios';
  *
  * @template TData - The type of data in the response
  */
-export type ApiResponse<TData = unknown> = {
+export interface ApiResponse<TData = unknown> {
   /** Response data */
   data: TData;
   /** HTTP status code */
   status: number;
   /** Status message */
   message?: string;
-};
+}
 
 /**
  * Standardized API error structure
  */
-export type ApiError = {
+export interface ApiError {
   /** Error message */
   message: string;
   /** HTTP status code */
@@ -26,12 +26,12 @@ export type ApiError = {
   code?: string;
   /** Additional error details */
   details?: Record<string, unknown>;
-};
+}
 
 /**
  * API client configuration options
  */
-export type ApiClientConfig = {
+export interface ApiClientConfig {
   /** Base URL for API requests */
   baseURL?: string;
   /** Request timeout in milliseconds */
@@ -44,7 +44,7 @@ export type ApiClientConfig = {
   enableRetry?: boolean;
   /** Maximum number of retry attempts */
   maxRetries?: number;
-};
+}
 
 /**
  * Extended axios request configuration with custom options
@@ -66,11 +66,11 @@ export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 /**
  * Retry configuration
  */
-export type RetryConfig = {
+export interface RetryConfig {
   /** Maximum number of retry attempts */
   maxRetries: number;
   /** Base delay between retries in milliseconds */
   retryDelay: number;
   /** HTTP status codes that should trigger retry */
   retryableStatuses: number[];
-};
+}

@@ -1,15 +1,16 @@
 import { Link } from 'react-router';
-import { cn } from '~/lib/utils';
-import { Image } from '~/components/ui/image';
+
 import { Images } from '~/assets/images';
+import { Image } from '~/components/ui/image';
+import { cn } from '~/lib/utils';
 
 /**
  * Logo component props
  */
-type LogoProps = {
+interface LogoProps {
   /** Optional CSS class name */
   className?: string;
-};
+}
 
 /**
  * Logo component with gradient and text

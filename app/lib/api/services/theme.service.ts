@@ -1,17 +1,18 @@
 import type { ThemeDirection, ThemeMode } from '~/providers/theme/types';
+
 import { internalHttp } from '../http/services';
 
 /**
  * Theme API response type
  */
-type ThemeApiResponse = {
+interface ThemeApiResponse {
   /** Success status */
   success: boolean;
   /** Theme value */
   theme?: ThemeMode;
   /** Direction value */
   direction?: ThemeDirection;
-};
+}
 
 /**
  * Set theme preference via API

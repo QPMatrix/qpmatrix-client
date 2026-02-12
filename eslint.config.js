@@ -8,10 +8,12 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
-export default tseslint.config(
-  { ignores: ['dist', 'build', '.react-router', 'node_modules'] },
+export default [
+  { ignores: ['dist', 'build', '.react-router', 'node_modules', '**/*.d.ts'] },
+  js.configs.recommended,
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
   {
-    extends: [js.configs.recommended, ...tseslint.configs.strict, ...tseslint.configs.stylistic],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -39,7 +41,9 @@ export default tseslint.config(
       'simple-import-sort/exports': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      // Disable rule causing crash with current parser/plugin combination
+      '@typescript-eslint/consistent-generic-constructors': 'off',
     },
   },
-  eslintConfigPrettier
-);
+  eslintConfigPrettier,
+];
