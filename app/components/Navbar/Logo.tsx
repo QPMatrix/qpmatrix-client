@@ -26,7 +26,7 @@ export function Logo({ className }: LogoProps): React.ReactElement {
         alt="QPMatrix Logo"
         className="size-20 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
       />
-      <span className="to-secondary bg-linear-to-r from-white bg-clip-text text-xl font-bold text-transparent transition-all duration-300 group-hover:tracking-wider">
+      <span className="to-secondary bg-linear-to-r from-foreground bg-clip-text text-xl font-bold text-transparent transition-all duration-300 group-hover:tracking-wider">
         QPMatrix
       </span>
     </Link>

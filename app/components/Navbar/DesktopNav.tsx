@@ -33,7 +33,7 @@ export function DesktopNav({ links }: DesktopNavProps): React.ReactElement {
             <NavigationMenuLink asChild>
               <Link
                 to={link.href}
-                className="group relative inline-flex h-9 w-max items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-white/70 transition-all hover:bg-white/10 hover:text-white focus:bg-white/10 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-active:bg-white/10 data-active:text-white"
+                className="group relative inline-flex h-9 w-max items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-active:bg-accent/50 data-active:text-accent-foreground"
               >
                 {link.label}
                 {link.badge && (

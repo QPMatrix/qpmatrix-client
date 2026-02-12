@@ -52,7 +52,7 @@ export function ServicesSection() {
           </FadeIn>
         </div>
         
-        <StaggerContainer className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+        <StaggerContainer className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 md:grid-cols-2 lg:max-w-none lg:grid-cols-3">
           {services.map((service, index) => (
             <StaggerItem key={service.title} delay={index * 0.1}>
               <Card className="h-full border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-md">

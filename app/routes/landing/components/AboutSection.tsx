@@ -14,7 +14,7 @@ const skills = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-24 sm:py-32 bg-muted/30 overflow-hidden">
+    <section id="about" className="py-24 sm:py-32 bg-secondary/30 dark:bg-secondary/10 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           
