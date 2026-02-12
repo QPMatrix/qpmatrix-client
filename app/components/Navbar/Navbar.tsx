@@ -24,8 +24,8 @@ function Navbar(): React.ReactElement {
   const showMobileMenu = isMobile || isTablet;
 
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 flex justify-center p-4">
-      <header className="animate-fade-in-down w-full max-w-6xl rounded-2xl border border-white/10 bg-black/60 shadow-lg backdrop-blur-xl supports-backdrop-filter:bg-black/30 md:px-2">
+    <header className="fixed top-0 right-0 left-0 z-50 flex justify-center p-4">
+      <div className="animate-fade-in-down w-full max-w-6xl rounded-2xl border border-white/10 bg-black/60 shadow-lg backdrop-blur-xl supports-backdrop-filter:bg-black/30 md:px-2">
         <div className="flex h-14 items-center justify-between px-4">
           <div className="flex items-center gap-6">
             <Logo className="transition-transform duration-300 hover:scale-105" />
@@ -44,8 +44,8 @@ function Navbar(): React.ReactElement {
             </ActivityView>
           </div>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
 

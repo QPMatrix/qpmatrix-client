@@ -4,7 +4,7 @@ import { FadeIn } from '~/components/motion/FadeIn';
 
 export function HeroAnnouncement() {
   return (
-    <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+    <div className="mb-8 flex justify-center sm:mb-8">
       <FadeIn delay={0.2} direction="down">
         <div className="relative rounded-full px-3 py-1 text-sm/6 text-muted-foreground ring-1 ring-border hover:ring-foreground/20 transition-all duration-300 hover:bg-muted/50 backdrop-blur-sm">
           Available for new projects.{' '}
